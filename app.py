@@ -26,12 +26,10 @@ db          = DataStorage.datastorage()
 #I should add this into every class? Or simply whenever I need to clear the page
 def clearScreen():
     os.system('clearScreen' if os.name == 'nt' else 'clear')
-
 # Read from the array containing user's personal information
 def reviewUserInfo():
     # Clear terminal space
     clearScreen()
-
     # Flesh out this fn using below code
     user.helloMsg()
 
@@ -49,23 +47,19 @@ def reviewUserInfo():
  #       print("Personal information denied save.")
  #       saveInfo = False
 
-
 def setUserInfo():
     # Clear terminal space
     clearScreen()
-
     # Enter personal information
-    dateOfBirth = raw_input("Enter your year of birth: ")
-    jobType = raw_input("Enter your job type/position: ")
-    favColour = raw_input("Enter your favourite colour: ")
-    favFood = raw_input("Enter your favourite food: ")
-
+    dateOfBirth = input("Enter your year of birth: ")
+    jobType = input("Enter your job type/position: ")
+    favColour = input("Enter your favourite colour: ")
+    favFood = input("Enter your favourite food: ")
     # Calculated personal information
     age = currentTime.year - int(dateOfBirth)
-
     while cmd:
         # Confirm personal information
-        setInput = raw_input("Satisfied with your entered information? Y/N: ")
+        setInput = input("Satisfied with your entered information? Y/N: ")
         if (setInput == "y" or setInput == "Y" or setInput == "Yes"):
             userPrompt()
             break
@@ -78,7 +72,7 @@ def setUserInfo():
 def userPrompt():
     # Confirm with user to review personal information
     while cmd:
-        setInput = raw_input("Review pre-existing personal information? Y/N: ")
+        setInput = input("Review pre-existing personal information? Y/N: ")
         if (setInput == "y" or setInput == "Y" or setInput == "Yes"):
             reviewUserInfo()
             break
@@ -86,10 +80,9 @@ def userPrompt():
             break
         else:
             user.deniedCmdMsg()
-
     # Confirm with user to edit their information
     while cmd:
-        setInput = raw_input("Edit pre-existing personal information? Y/N: ")
+        setInput = input("Edit pre-existing personal information? Y/N: ")
         if (setInput == "y" or setInput == "Y" or setInput == "Yes"):
             setUserInfo()
             break
@@ -97,10 +90,9 @@ def userPrompt():
             break
         else:
             user.deniedCmdMsg()
-
     # Confirm to close the app
     while cmd:
-        setInput = raw_input("Close app.py or list options again? Y/N: ")
+        setInput = input("Close app.py or list options again? Y/N: ")
         if (setInput == "y" or setInput == "Y" or setInput == "Yes"):
             closeApp()
             break
@@ -111,10 +103,9 @@ def userPrompt():
             user.deniedCmdMsg()
 
 def userCreate():
-
     # Confirm to create new user in database
     while cmd:
-        setInput = raw_input("Create new user? Y/N: ")
+        setInput = input("Create new user? Y/N: ")
         if (setInput == "y" or setInput == "Y" or setInput == "Yes"):
             clearScreen()
             setUserInfo()
@@ -123,10 +114,9 @@ def userCreate():
             break
         else:
             user.deniedCmdMsg()
-
     # Confirm that user already is in database but may have entered incorrect information
     while cmd:
-        setInput = raw_input("Already a pre-existing user? Y/N ")
+        setInput = input("Already a pre-existing user? Y/N ")
         if (setInput == "y" or setInput == "Y" or setInput == "Yes"):
             # Clear terminal screen
             clearScreen()
@@ -140,11 +130,10 @@ def userCreate():
 
 def userActive():
     # Prompt user
-    name = raw_input("Name: ")
-    nopass = getpass.getpass()
-
+    name = input("Name: ")
+    password = getpass.getpass(prompt="Password: ", stream=None)
     # Store personal information into some sort of database or txt file
-    # inDataBase = db.confirmUser(name,password)
+    inDataBase = db.confirmUser(name,password)
     if (inDataBase):
         prgm.availableUser(name)
         user.acceptedAccessMsg()
@@ -161,14 +150,12 @@ def startApp():
     print("Starting app.py...")
     print("-" * 100)
     print("")
-
     # Prompt for input by user
     userActive()
 
 def closeApp():
     #No longer prompt user
     conPrompt = False
-
     #Closing app.py
     print("")
     print("-" * 100)
